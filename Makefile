@@ -11,4 +11,4 @@ real-san-example%: main%.cpp
 	$(CXX) -g -fsanitize=thread -o $@ $^ -lpthread
 
 clean:
-	$(RM) example* opt-example* sam-example* real-san-example*
+	$(RM) example* opt-example* san-example* real-san-example*
