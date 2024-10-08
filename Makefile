@@ -2,7 +2,13 @@ example%: main%.cpp
 	$(CXX) -o $@ $^ -lpthread
 
 opt-example%: main%.cpp
-	$(CXX) -O2 -o $@ $^ -lpthread
+	$(CXX) -O3 -o $@ $^ -lpthread
+
+san-example%: main%.cpp
+	$(CXX) -fsanitize=thread -o $@ $^ -lpthread
+
+real-san-example%: main%.cpp
+	$(CXX) -g -fsanitize=thread -o $@ $^ -lpthread
 
 clean:
-	$(RM) example* opt-example*
+	$(RM) example* opt-example* sam-example* real-san-example*
