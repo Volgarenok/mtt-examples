@@ -1,2 +1,2 @@
-example1: main1.cpp
+example%: main%.cpp
 	$(CXX) -o $@ $^ -lpthread
