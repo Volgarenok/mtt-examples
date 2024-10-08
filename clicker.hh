@@ -11,7 +11,7 @@ namespace mtt
      start_(std::chrono::high_resolution_clock::now())
     {}
 
-    auto millisec() const
+    double millisec() const
     {
       using std::chrono::high_resolution_clock;
       using std::chrono::duration_cast;
