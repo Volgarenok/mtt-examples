@@ -1,25 +1,20 @@
 #include <iostream>
 #include <vector>
+#include <numeric>
 #include <thread>
 #include "clicker.hh"
 
 using data_t = std::vector< unsigned long long >;
 using value_t = data_t::value_type;
 
-value_t sum_data(const data_t & data, size_t i, size_t amount)
+value_t sum_data(const data_t::const_iterator begin, const data_t::const_iterator end)
 {
-  value_t sum{0};
-  for (size_t j = i; j < i + amount; ++j)
-  {
-    sum += data[j];
-  }
-  return sum;
+  return std::accumulate(begin, end, value_t{0});
 }
 
-void sum_data_th(const data_t & data, size_t i, size_t amount,
- value_t & res)
+void sum_data_th(const data_t::const_iterator begin, const data_t::const_iterator end, value_t & res)
 {
-  res += sum_data(data, i, amount);
+  res += sum_data(begin, end);
 }
 
 int main()
@@ -34,19 +29,20 @@ int main()
     data_t values(size, 1);
 
     std::vector< std::thread > ths;
-    size_t threads_use = threads;
-    ths.reserve(threads_use);
+    ths.reserve(threads);
     init = cl.millisec();
 
-    size_t per_th = size / threads_use;
-    size_t last_th = per_th + size % threads_use;
+    size_t per_th = size / threads;
+    size_t last_th = per_th + size % threads;
     size_t i = 0;
-    for (; i < threads_use - 1; ++i)
+    auto it = values.cbegin();
+    for (; i < threads - 1; ++i)
     {
-      ths.emplace_back(sum_data_th,
-       std::cref(values), i * per_th, per_th, std::ref(sum));
+      auto end = it + per_th;
+      ths.emplace_back(sum_data_th, it, end, std::ref(sum));
+      it = end;
     }
-    sum_data_th(values, i * per_th, last_th, sum);
+    sum_data_th(it, it + last_th, sum);
     for (auto && th: ths)
     {
       th.join();
