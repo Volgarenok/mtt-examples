@@ -3,3 +3,6 @@ example%: main%.cpp
 
 opt-example%: main%.cpp
 	$(CXX) -O2 -o $@ $^ -lpthread
+
+clean:
+	$(RM) example* opt-example*
