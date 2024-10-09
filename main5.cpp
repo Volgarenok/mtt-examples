@@ -21,7 +21,7 @@ void sum_data_th(c_it_t begin, c_it_t end, it_t res)
 
 int main()
 {
-  constexpr size_t size{1'000'000'00};
+  constexpr size_t size{1'000'000'000};
   const size_t threads = std::thread::hardware_concurrency();
   double init{0}, total{0};
 

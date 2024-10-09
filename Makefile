@@ -2,7 +2,7 @@ example%: main%.cpp
 	$(CXX) -o $@ $^ -lpthread
 
 opt-example%: main%.cpp
-	$(CXX) -O3 -o $@ $^ -lpthread
+	$(CXX) -O2 -o $@ $^ -lpthread
 
 san-example%: main%.cpp
 	$(CXX) -fsanitize=thread -o $@ $^ -lpthread

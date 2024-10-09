@@ -16,11 +16,6 @@ value_t sum_data(c_it_t begin, c_it_t end)
   return std::accumulate(begin, end, value_t{0});
 }
 
-void sum_data_th(c_it_t begin, c_it_t end, it_t res)
-{
-  *res = sum_data(begin, end);
-}
-
 int main()
 {
   constexpr size_t size{1'000'000'000};
